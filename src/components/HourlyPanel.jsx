@@ -1,4 +1,4 @@
-import WeatherSymbol from "./WeatherSymbol";
+import WeatherSymbol from "./WeatherSymbols";
 import { formatClockLabel } from "../lib/formatters";
 
 export default function HourlyPanel({ hourly }) {
