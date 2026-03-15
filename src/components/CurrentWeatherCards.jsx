@@ -11,7 +11,11 @@ export default function CurrentWeatherCard({ location, current }) {
           </p>
           <h2>Current Weather</h2>
         </div>
-        <WeatherSymbol label={current.condition} symbol={current.symbol} />
+        <WeatherSymbol
+          label={current.condition}
+          symbol={current.symbol}
+          iconUrl={current.iconUrl}
+        />
       </div>
 
       <div className="temperature-row">

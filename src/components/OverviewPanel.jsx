@@ -1,6 +1,6 @@
 import { formatClockLabel } from "../lib/formatters";
 
-export default function OverviewPanel({ current }) {
+export default function OverviewPanel({ current, sourceLabel }) {
   return (
     <article className="panel">
       <div className="panel-head">
@@ -26,8 +26,8 @@ export default function OverviewPanel({ current }) {
           </strong>
         </li>
         <li>
-          <span>Prototype stage</span>
-          <strong>Static data only</strong>
+          <span>Data source</span>
+          <strong>{sourceLabel}</strong>
         </li>
       </ul>
     </article>

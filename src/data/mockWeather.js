@@ -15,12 +15,12 @@ export const mockWeather = {
     windSpeed: 8,
     pressure: 1012,
     visibility: 10,
-    uvIndex: 3,
+    cloudCover: 18,
     sunrise: "2026-03-16T06:08:00+08:00",
     sunset: "2026-03-16T18:09:00+08:00",
     condition: "Clear sky",
     summary:
-      "Cool highland weather with bright sunshine, low rain chance, and a comfortable breeze through the afternoon.",
+      "Starter data shows cool highland weather with bright sunshine and a comfortable breeze through the afternoon.",
     symbol: "clr",
   },
   hourly: [
