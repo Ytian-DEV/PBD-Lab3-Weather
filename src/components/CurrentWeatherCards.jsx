@@ -1,4 +1,4 @@
-import WeatherSymbol from "./WeatherSymbol";
+import WeatherSymbol from "./WeatherSymbols";
 import { formatDateTime } from "../lib/formatters";
 
 export default function CurrentWeatherCard({ location, current }) {

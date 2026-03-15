@@ -1,4 +1,4 @@
-import WeatherSymbol from "./WeatherSymbol";
+import WeatherSymbol from "./WeatherSymbols";
 import { formatDayName } from "../lib/formatters";
 
 export default function ForecastPanel({ forecast }) {

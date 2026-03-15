@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import CurrentWeatherCard from "./components/CurrentWeatherCard";
+import CurrentWeatherCard from "./components/CurrentWeatherCards";
 import ForecastPanel from "./components/ForecastPanel";
 import HighlightsGrid from "./components/HighlightsGrid";
 import HourlyPanel from "./components/HourlyPanel";
@@ -111,15 +111,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <div className="background-scene" aria-hidden="true">
-        <span className="scene-blob scene-blob--sun" />
-        <span className="scene-blob scene-blob--sky" />
-        <span className="scene-blob scene-blob--mist" />
-        <span className="scene-blob scene-blob--aurora" />
-        <span className="scene-beam scene-beam--left" />
-        <span className="scene-beam scene-beam--right" />
-        <span className="scene-grid" />
-      </div>
+      <div className="background-scene" aria-hidden="true" />
 
       <div className="app-content">
         <header className="hero-grid">
