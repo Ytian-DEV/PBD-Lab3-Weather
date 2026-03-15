@@ -4,6 +4,7 @@ export default function SearchBar({
   onSearch,
   disabled = false,
   helperText,
+  buttonLabel = "Search city",
 }) {
   function handleSubmit(event) {
     event.preventDefault();
@@ -15,10 +16,10 @@ export default function SearchBar({
 
   return (
     <form className="search-card" onSubmit={handleSubmit}>
-      <div className="section-tag">Framework Starter</div>
+      <div className="section-tag">Live Search</div>
       <h2>Search weather by city</h2>
       <p className="card-copy">
-        The API-powered search flow is introduced in the next feature branch.
+        Find live weather data, a short hourly outlook, and a 5-day forecast.
       </p>
 
       <label className="search-field" htmlFor="city-search">
@@ -35,7 +36,7 @@ export default function SearchBar({
       </label>
 
       <button type="submit" disabled={disabled}>
-        Search city
+        {buttonLabel}
       </button>
 
       {helperText ? <p className="helper-text">{helperText}</p> : null}

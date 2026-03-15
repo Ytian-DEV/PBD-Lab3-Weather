@@ -9,7 +9,7 @@ export default function ForecastPanel({ forecast }) {
           <p className="eyebrow-text">Outlook</p>
           <h2>5-Day Forecast</h2>
         </div>
-        <span className="muted-text">Static sample data</span>
+        <span className="muted-text">Next 5 days</span>
       </div>
 
       <div className="forecast-grid">
@@ -17,7 +17,11 @@ export default function ForecastPanel({ forecast }) {
           <article className="forecast-card" key={day.date}>
             <div className="forecast-head">
               <span>{formatDayName(day.date)}</span>
-              <WeatherSymbol label={day.condition} symbol={day.symbol} />
+              <WeatherSymbol
+                label={day.condition}
+                symbol={day.symbol}
+                iconUrl={day.iconUrl}
+              />
             </div>
             <strong>{day.high} C</strong>
             <p>{day.condition}</p>

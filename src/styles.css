@@ -16,6 +16,11 @@
   --cloud: linear-gradient(135deg, #d9e7f7, #8ea9c8);
   --rain: linear-gradient(135deg, #5d84b3, #365f8c);
   --storm: linear-gradient(135deg, #3c4461, #202433);
+  --danger-bg: rgba(183, 34, 34, 0.12);
+  --danger-border: rgba(183, 34, 34, 0.18);
+  --danger-text: #8d2222;
+  --info-bg: rgba(36, 118, 255, 0.1);
+  --info-border: rgba(36, 118, 255, 0.16);
   --shadow: 0 28px 52px rgba(26, 67, 119, 0.12);
   --radius-xl: 28px;
   --radius-lg: 22px;
@@ -179,6 +184,26 @@ img {
   line-height: 1.55;
 }
 
+.status-banner {
+  margin-bottom: 24px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  border: 1px solid transparent;
+  line-height: 1.6;
+}
+
+.status-banner--error {
+  color: var(--danger-text);
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+}
+
+.status-banner--info {
+  color: var(--text);
+  background: var(--info-bg);
+  border-color: var(--info-border);
+}
+
 .panel-head,
 .forecast-head,
 .temperature-row,
@@ -310,6 +335,11 @@ img {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.symbol-image {
+  object-fit: cover;
+  background: rgba(36, 118, 255, 0.08);
 }
 
 .symbol-chip--clear,

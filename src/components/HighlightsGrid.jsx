@@ -4,7 +4,7 @@ const metrics = [
   ["Wind Speed", "windSpeed", "km/h"],
   ["Pressure", "pressure", "hPa"],
   ["Visibility", "visibility", "km"],
-  ["UV Index", "uvIndex", ""],
+  ["Cloud Cover", "cloudCover", "%"],
 ];
 
 export default function HighlightsGrid({ current }) {

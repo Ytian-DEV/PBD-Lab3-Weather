@@ -9,14 +9,18 @@ export default function HourlyPanel({ hourly }) {
           <p className="eyebrow-text">Today</p>
           <h2>Hourly Outlook</h2>
         </div>
-        <span className="muted-text">Hardcoded starter content</span>
+        <span className="muted-text">Upcoming intervals</span>
       </div>
 
       <div className="hourly-grid">
         {hourly.map((entry) => (
           <article className="hourly-card" key={entry.time}>
             <span className="muted-text">{formatClockLabel(entry.time)}</span>
-            <WeatherSymbol label={entry.condition} symbol={entry.symbol} />
+            <WeatherSymbol
+              label={entry.condition}
+              symbol={entry.symbol}
+              iconUrl={entry.iconUrl}
+            />
             <strong>{entry.temperature} C</strong>
             <p>{entry.condition}</p>
             <span className="muted-text">Rain {entry.precipitationChance}%</span>
