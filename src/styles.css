@@ -5,6 +5,8 @@
   font-family: "DM Sans", "Segoe UI", sans-serif;
   --bg-top: #ebf6ff;
   --bg-bottom: #f9fbff;
+  --glow-one: rgba(255, 196, 61, 0.28);
+  --glow-two: rgba(36, 118, 255, 0.16);
   --surface: rgba(255, 255, 255, 0.86);
   --surface-strong: rgba(255, 255, 255, 0.97);
   --border: rgba(44, 98, 160, 0.14);
@@ -27,6 +29,27 @@
   --radius-md: 18px;
 }
 
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-top: #0d1b2a;
+  --bg-bottom: #15253b;
+  --glow-one: rgba(255, 174, 66, 0.18);
+  --glow-two: rgba(77, 167, 255, 0.16);
+  --surface: rgba(13, 28, 44, 0.86);
+  --surface-strong: rgba(17, 35, 53, 0.97);
+  --border: rgba(144, 185, 226, 0.16);
+  --text: #edf6ff;
+  --muted: #99b2cb;
+  --primary: #74b2ff;
+  --secondary: #ffac66;
+  --danger-bg: rgba(255, 99, 99, 0.14);
+  --danger-border: rgba(255, 99, 99, 0.2);
+  --danger-text: #ffc2c2;
+  --info-bg: rgba(116, 178, 255, 0.12);
+  --info-border: rgba(116, 178, 255, 0.18);
+  --shadow: 0 30px 56px rgba(2, 10, 18, 0.42);
+}
+
 *,
 *::before,
 *::after {
@@ -38,8 +61,8 @@ body {
   min-height: 100vh;
   color: var(--text);
   background:
-    radial-gradient(circle at top right, rgba(255, 196, 61, 0.28), transparent 18%),
-    radial-gradient(circle at left center, rgba(36, 118, 255, 0.16), transparent 20%),
+    radial-gradient(circle at top right, var(--glow-one), transparent 18%),
+    radial-gradient(circle at left center, var(--glow-two), transparent 20%),
     linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
 }
 
@@ -103,17 +126,36 @@ img {
   padding: 28px;
 }
 
+.hero-topline {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+}
+
 .section-tag,
-.eyebrow-text {
+.eyebrow-text,
+.theme-toggle {
   display: inline-flex;
   align-items: center;
   padding: 8px 14px;
   border-radius: 999px;
-  background: rgba(36, 118, 255, 0.1);
-  color: var(--primary);
   font-size: 0.85rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+}
+
+.section-tag,
+.eyebrow-text {
+  background: rgba(36, 118, 255, 0.1);
+  color: var(--primary);
+}
+
+.theme-toggle {
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
+  color: var(--text);
+  font-weight: 700;
 }
 
 .hero-copy h1,
@@ -383,6 +425,7 @@ img {
     padding: 22px;
   }
 
+  .hero-topline,
   .panel-head,
   .temperature-row,
   .meta-grid,

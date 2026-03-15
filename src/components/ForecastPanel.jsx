@@ -21,6 +21,7 @@ export default function ForecastPanel({ forecast }) {
                 label={day.condition}
                 symbol={day.symbol}
                 iconUrl={day.iconUrl}
+                lazy
               />
             </div>
             <strong>{day.high} C</strong>

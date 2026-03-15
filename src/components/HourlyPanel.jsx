@@ -20,6 +20,7 @@ export default function HourlyPanel({ hourly }) {
               label={entry.condition}
               symbol={entry.symbol}
               iconUrl={entry.iconUrl}
+              lazy
             />
             <strong>{entry.temperature} C</strong>
             <p>{entry.condition}</p>

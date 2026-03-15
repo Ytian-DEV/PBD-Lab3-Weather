@@ -5,26 +5,51 @@ import HighlightsGrid from "./components/HighlightsGrid";
 import HourlyPanel from "./components/HourlyPanel";
 import OverviewPanel from "./components/OverviewPanel";
 import SearchBar from "./components/SearchBar";
+import ThemeToggle from "./components/ThemeToggle";
 import { mockWeather } from "./data/mockWeather";
+import { formatDateTime } from "./lib/formatters";
+import {
+  readThemePreference,
+  readWeatherCache,
+  writeThemePreference,
+  writeWeatherCache,
+} from "./lib/storage";
 import { fetchWeatherBundle } from "./lib/weatherApi";
 
 const DEFAULT_CITY = "Baguio City";
 
+function getInitialDashboardState(apiKey, cachedWeather) {
+  if (cachedWeather?.data) {
+    return {
+      city: cachedWeather.data.location.city,
+      weatherData: cachedWeather.data,
+      notice: apiKey
+        ? `Loaded cached weather from ${formatDateTime(cachedWeather.savedAt)} while refreshing live data.`
+        : `Showing cached weather from ${formatDateTime(cachedWeather.savedAt)}. Add an API key to refresh live data.`,
+      sourceLabel: "Cached weather data",
+    };
+  }
+
+  return {
+    city: DEFAULT_CITY,
+    weatherData: mockWeather,
+    notice: apiKey ? "Loading live weather data for the default city." : "Missing API key. The dashboard is showing starter data until VITE_OPENWEATHER_API_KEY is configured.",
+    sourceLabel: "Starter mock data",
+  };
+}
+
 export default function App() {
   const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
+  const cachedWeatherRef = useRef(readWeatherCache());
+  const initialState = useRef(getInitialDashboardState(apiKey, cachedWeatherRef.current)).current;
   const hasLoadedDefault = useRef(false);
-  const [city, setCity] = useState(DEFAULT_CITY);
-  const [weatherData, setWeatherData] = useState(mockWeather);
+  const [theme, setTheme] = useState(() => readThemePreference());
+  const [city, setCity] = useState(initialState.city);
+  const [weatherData, setWeatherData] = useState(initialState.weatherData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [notice, setNotice] = useState(
-    apiKey
-      ? ""
-      : "Missing API key. The dashboard is showing starter data until VITE_OPENWEATHER_API_KEY is configured.",
-  );
-  const [sourceLabel, setSourceLabel] = useState(
-    apiKey ? "Live API data" : "Starter mock data",
-  );
+  const [notice, setNotice] = useState(initialState.notice);
+  const [sourceLabel, setSourceLabel] = useState(initialState.sourceLabel);
 
   async function handleSearch(nextCity = city) {
     const trimmedCity = nextCity.trim();
@@ -41,13 +66,14 @@ export default function App() {
 
     setLoading(true);
     setError("");
-    setNotice("");
 
     try {
       const result = await fetchWeatherBundle(trimmedCity, apiKey);
       setWeatherData(result);
       setCity(result.location.city);
       setSourceLabel("Live API data");
+      setNotice("");
+      writeWeatherCache(result);
     } catch (requestError) {
       const message =
         requestError instanceof Error
@@ -62,13 +88,18 @@ export default function App() {
   }
 
   useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    writeThemePreference(theme);
+  }, [theme]);
+
+  useEffect(() => {
     if (!apiKey || hasLoadedDefault.current) {
       return;
     }
 
     hasLoadedDefault.current = true;
-    handleSearch(DEFAULT_CITY);
-  }, [apiKey]);
+    handleSearch(initialState.city);
+  }, [apiKey, initialState.city]);
 
   const searchHelperText = apiKey
     ? "Search any city supported by OpenWeather to refresh the dashboard."
@@ -78,7 +109,17 @@ export default function App() {
     <div className="app-shell">
       <header className="hero-grid">
         <section className="hero-copy">
-          <div className="section-tag">Live Weather Dashboard</div>
+          <div className="hero-topline">
+            <div className="section-tag">Live Weather Dashboard</div>
+            <ThemeToggle
+              theme={theme}
+              onToggle={() =>
+                setTheme((currentTheme) =>
+                  currentTheme === "light" ? "dark" : "light",
+                )
+              }
+            />
+          </div>
           <h1>Responsive Weather Dashboard</h1>
           <p>
             Search a city to load current conditions, an hourly outlook, and a
