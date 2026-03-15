@@ -1,0 +1,32 @@
+import WeatherSymbol from "./WeatherSymbols";
+import { formatClockLabel } from "../lib/formatters";
+
+export default function HourlyPanel({ hourly }) {
+  return (
+    <article className="panel">
+      <div className="panel-head">
+        <div>
+          <p className="eyebrow-text">Today</p>
+          <h2>Hourly Outlook</h2>
+        </div>
+        <span className="muted-text">Upcoming intervals</span>
+      </div>
+
+      <div className="hourly-grid">
+        {hourly.map((entry) => (
+          <article className="hourly-card" key={entry.time}>
+            <span className="muted-text hourly-time">{formatClockLabel(entry.time)}</span>
+            <WeatherSymbol
+              label={entry.condition}
+              symbol={entry.symbol}
+              size="sm"
+            />
+            <strong>{entry.temperature} C</strong>
+            <p>{entry.condition}</p>
+            <span className="muted-text hourly-rain">Rain {entry.precipitationChance}%</span>
+          </article>
+        ))}
+      </div>
+    </article>
+  );
+}
