@@ -4,7 +4,7 @@ import { formatDateTime } from "../lib/formatters";
 export default function CurrentWeatherCard({ location, current }) {
   return (
     <article className="panel current-panel">
-      <div className="panel-head">
+      <div className="panel-head panel-head--current">
         <div>
           <p className="eyebrow-text">
             {location.city}, {location.country}
@@ -14,12 +14,15 @@ export default function CurrentWeatherCard({ location, current }) {
         <WeatherSymbol
           label={current.condition}
           symbol={current.symbol}
-          iconUrl={current.iconUrl}
+          size="xl"
         />
       </div>
 
       <div className="temperature-row">
-        <div className="temperature-value">{current.temperature} C</div>
+        <div className="temperature-stack">
+          <div className="temperature-value">{current.temperature} C</div>
+          <p className="temperature-caption">Feels like {current.feelsLike} C</p>
+        </div>
         <div className="temperature-range">
           <span>High {current.high} C</span>
           <span>Low {current.low} C</span>

@@ -84,6 +84,10 @@ async function getJson(response) {
       throw new Error("City not found. Check the spelling and try again.");
     }
 
+    if (response.status === 401) {
+      throw new Error("Invalid API key. Verify your OpenWeather account or wait for key activation.");
+    }
+
     throw new Error(toTitleCase(data.message ?? "Unable to load weather data."));
   }
 

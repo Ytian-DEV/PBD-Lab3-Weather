@@ -15,18 +15,15 @@ export default function ForecastPanel({ forecast }) {
       <div className="forecast-grid">
         {forecast.map((day) => (
           <article className="forecast-card" key={day.date}>
-            <div className="forecast-head">
-              <span>{formatDayName(day.date)}</span>
-              <WeatherSymbol
-                label={day.condition}
-                symbol={day.symbol}
-                iconUrl={day.iconUrl}
-                lazy
-              />
-            </div>
+            <span className="muted-text forecast-day">{formatDayName(day.date)}</span>
+            <WeatherSymbol
+              label={day.condition}
+              symbol={day.symbol}
+              size="sm"
+            />
             <strong>{day.high} C</strong>
             <p>{day.condition}</p>
-            <span className="muted-text">Low {day.low} C</span>
+            <span className="muted-text forecast-low">Low {day.low} C</span>
           </article>
         ))}
       </div>

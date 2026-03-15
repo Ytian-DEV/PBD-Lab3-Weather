@@ -33,7 +33,9 @@ function getInitialDashboardState(apiKey, cachedWeather) {
   return {
     city: DEFAULT_CITY,
     weatherData: mockWeather,
-    notice: apiKey ? "Loading live weather data for the default city." : "Missing API key. The dashboard is showing starter data until VITE_OPENWEATHER_API_KEY is configured.",
+    notice: apiKey
+      ? "Loading live weather data for the default city."
+      : "Missing API key. The dashboard is showing starter data until VITE_OPENWEATHER_API_KEY is configured.",
     sourceLabel: "Starter mock data",
   };
 }
@@ -41,7 +43,9 @@ function getInitialDashboardState(apiKey, cachedWeather) {
 export default function App() {
   const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
   const cachedWeatherRef = useRef(readWeatherCache());
-  const initialState = useRef(getInitialDashboardState(apiKey, cachedWeatherRef.current)).current;
+  const initialState = useRef(
+    getInitialDashboardState(apiKey, cachedWeatherRef.current),
+  ).current;
   const hasLoadedDefault = useRef(false);
   const [theme, setTheme] = useState(() => readThemePreference());
   const [city, setCity] = useState(initialState.city);
@@ -107,55 +111,63 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <header className="hero-grid">
-        <section className="hero-copy">
-          <div className="hero-topline">
-            <div className="section-tag">Live Weather Dashboard</div>
-            <ThemeToggle
-              theme={theme}
-              onToggle={() =>
-                setTheme((currentTheme) =>
-                  currentTheme === "light" ? "dark" : "light",
-                )
-              }
-            />
-          </div>
-          <h1>Responsive Weather Dashboard</h1>
-          <p>
-            Search a city to load current conditions, an hourly outlook, and a
-            5-day forecast from the OpenWeather API. The layout stays responsive
-            across mobile, tablet, and desktop screens.
-          </p>
-        </section>
+      <div className="background-scene" aria-hidden="true" />
 
-        <SearchBar
-          value={city}
-          onChange={setCity}
-          onSearch={() => handleSearch(city)}
-          disabled={loading || !apiKey}
-          buttonLabel={loading ? "Loading weather..." : "Search city"}
-          helperText={searchHelperText}
-        />
-      </header>
+      <div className="app-content">
+        <header className="hero-grid">
+          <section className="hero-copy">
+            <div className="hero-topline">
+              <div className="section-tag">Live Weather Dashboard</div>
+              <ThemeToggle
+                theme={theme}
+                onToggle={() =>
+                  setTheme((currentTheme) =>
+                    currentTheme === "light" ? "dark" : "light",
+                  )
+                }
+              />
+            </div>
+            <h1>Responsive Weather Dashboard</h1>
+            <p>
+              Search a city to load current conditions, an hourly outlook, and a
+              5-day forecast from the OpenWeather API. The layout stays responsive
+              across mobile, tablet, and desktop screens.
+            </p>
+          </section>
 
-      {error ? <div className="status-banner status-banner--error">{error}</div> : null}
-      {notice ? <div className="status-banner status-banner--info">{notice}</div> : null}
-
-      <main className="dashboard-grid">
-        <div className="dashboard-stack">
-          <CurrentWeatherCard
-            location={weatherData.location}
-            current={weatherData.current}
+          <SearchBar
+            value={city}
+            onChange={setCity}
+            onSearch={() => handleSearch(city)}
+            disabled={loading || !apiKey}
+            buttonLabel={loading ? "Loading weather..." : "Search city"}
+            helperText={searchHelperText}
           />
-          <HourlyPanel hourly={weatherData.hourly} />
-          <ForecastPanel forecast={weatherData.forecast} />
-        </div>
+        </header>
 
-        <div className="dashboard-stack dashboard-stack--aside">
-          <HighlightsGrid current={weatherData.current} />
-          <OverviewPanel current={weatherData.current} sourceLabel={sourceLabel} />
-        </div>
-      </main>
+        {error ? (
+          <div className="status-banner status-banner--error">{error}</div>
+        ) : null}
+        {notice ? (
+          <div className="status-banner status-banner--info">{notice}</div>
+        ) : null}
+
+        <main className="dashboard-grid">
+          <div className="dashboard-stack">
+            <CurrentWeatherCard
+              location={weatherData.location}
+              current={weatherData.current}
+            />
+            <HourlyPanel hourly={weatherData.hourly} />
+            <ForecastPanel forecast={weatherData.forecast} />
+          </div>
+
+          <div className="dashboard-stack dashboard-stack--aside">
+            <HighlightsGrid current={weatherData.current} />
+            <OverviewPanel current={weatherData.current} sourceLabel={sourceLabel} />
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
