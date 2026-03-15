@@ -15,15 +15,22 @@ export default function HourlyPanel({ hourly }) {
       <div className="hourly-grid">
         {hourly.map((entry) => (
           <article className="hourly-card" key={entry.time}>
-            <span className="muted-text hourly-time">{formatClockLabel(entry.time)}</span>
-            <WeatherSymbol
-              label={entry.condition}
-              symbol={entry.symbol}
-              size="sm"
-            />
-            <strong>{entry.temperature} C</strong>
-            <p>{entry.condition}</p>
-            <span className="muted-text">Rain {entry.precipitationChance}%</span>
+            <div className="hourly-card-top">
+              <span className="muted-text hourly-time">{formatClockLabel(entry.time)}</span>
+              <span className="hourly-rain">Rain {entry.precipitationChance}%</span>
+            </div>
+
+            <div className="hourly-card-main">
+              <WeatherSymbol
+                label={entry.condition}
+                symbol={entry.symbol}
+                size="sm"
+              />
+              <div className="hourly-card-copy">
+                <strong>{entry.temperature} C</strong>
+                <p>{entry.condition}</p>
+              </div>
+            </div>
           </article>
         ))}
       </div>
