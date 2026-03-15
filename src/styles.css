@@ -3,51 +3,57 @@
 :root {
   color-scheme: light;
   font-family: "DM Sans", "Segoe UI", sans-serif;
-  --bg-top: #ebf6ff;
-  --bg-bottom: #f9fbff;
-  --glow-one: rgba(255, 196, 61, 0.28);
-  --glow-two: rgba(36, 118, 255, 0.16);
-  --surface: rgba(255, 255, 255, 0.86);
-  --surface-strong: rgba(255, 255, 255, 0.97);
-  --border: rgba(44, 98, 160, 0.14);
+  --bg-top: #dceeff;
+  --bg-bottom: #f9fcff;
+  --glow-one: rgba(255, 201, 107, 0.45);
+  --glow-two: rgba(104, 184, 255, 0.3);
+  --glow-three: rgba(152, 230, 255, 0.26);
+  --glass-top: rgba(255, 255, 255, 0.58);
+  --glass-bottom: rgba(255, 255, 255, 0.18);
+  --glass-strong: rgba(255, 255, 255, 0.28);
+  --glass-stroke: rgba(255, 255, 255, 0.56);
+  --glass-highlight: rgba(255, 255, 255, 0.72);
+  --glass-shadow: 0 26px 80px rgba(48, 85, 128, 0.18);
+  --border: rgba(105, 149, 205, 0.22);
   --text: #173252;
-  --muted: #5d7797;
+  --muted: #58779c;
   --primary: #2476ff;
-  --secondary: #ff8c42;
-  --clear: linear-gradient(135deg, #ffcc52, #ff9b4a);
-  --cloud: linear-gradient(135deg, #d9e7f7, #8ea9c8);
-  --rain: linear-gradient(135deg, #5d84b3, #365f8c);
-  --storm: linear-gradient(135deg, #3c4461, #202433);
-  --danger-bg: rgba(183, 34, 34, 0.12);
-  --danger-border: rgba(183, 34, 34, 0.18);
-  --danger-text: #8d2222;
-  --info-bg: rgba(36, 118, 255, 0.1);
-  --info-border: rgba(36, 118, 255, 0.16);
-  --shadow: 0 28px 52px rgba(26, 67, 119, 0.12);
-  --radius-xl: 28px;
-  --radius-lg: 22px;
-  --radius-md: 18px;
+  --primary-soft: rgba(36, 118, 255, 0.12);
+  --secondary: #ffaf54;
+  --danger-bg: rgba(207, 63, 63, 0.12);
+  --danger-border: rgba(207, 63, 63, 0.16);
+  --danger-text: #972f2f;
+  --info-bg: rgba(73, 134, 255, 0.12);
+  --info-border: rgba(73, 134, 255, 0.16);
+  --radius-xl: 30px;
+  --radius-lg: 24px;
+  --radius-md: 20px;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg-top: #0d1b2a;
-  --bg-bottom: #15253b;
-  --glow-one: rgba(255, 174, 66, 0.18);
-  --glow-two: rgba(77, 167, 255, 0.16);
-  --surface: rgba(13, 28, 44, 0.86);
-  --surface-strong: rgba(17, 35, 53, 0.97);
-  --border: rgba(144, 185, 226, 0.16);
-  --text: #edf6ff;
-  --muted: #99b2cb;
-  --primary: #74b2ff;
-  --secondary: #ffac66;
-  --danger-bg: rgba(255, 99, 99, 0.14);
-  --danger-border: rgba(255, 99, 99, 0.2);
-  --danger-text: #ffc2c2;
-  --info-bg: rgba(116, 178, 255, 0.12);
-  --info-border: rgba(116, 178, 255, 0.18);
-  --shadow: 0 30px 56px rgba(2, 10, 18, 0.42);
+  --bg-top: #091523;
+  --bg-bottom: #12243a;
+  --glow-one: rgba(255, 176, 92, 0.22);
+  --glow-two: rgba(82, 164, 255, 0.2);
+  --glow-three: rgba(106, 224, 255, 0.16);
+  --glass-top: rgba(18, 34, 54, 0.62);
+  --glass-bottom: rgba(11, 23, 38, 0.26);
+  --glass-strong: rgba(17, 32, 50, 0.36);
+  --glass-stroke: rgba(180, 215, 255, 0.16);
+  --glass-highlight: rgba(232, 244, 255, 0.18);
+  --glass-shadow: 0 28px 90px rgba(0, 0, 0, 0.32);
+  --border: rgba(136, 184, 239, 0.14);
+  --text: #edf5ff;
+  --muted: #9eb8d4;
+  --primary: #7ab6ff;
+  --primary-soft: rgba(122, 182, 255, 0.12);
+  --secondary: #ffca84;
+  --danger-bg: rgba(245, 109, 109, 0.12);
+  --danger-border: rgba(245, 109, 109, 0.16);
+  --danger-text: #ffc9c9;
+  --info-bg: rgba(122, 182, 255, 0.12);
+  --info-border: rgba(122, 182, 255, 0.18);
 }
 
 *,
@@ -56,14 +62,83 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   color: var(--text);
   background:
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%),
     radial-gradient(circle at top right, var(--glow-one), transparent 18%),
-    radial-gradient(circle at left center, var(--glow-two), transparent 20%),
-    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+    radial-gradient(circle at left center, var(--glow-two), transparent 22%);
+}
+
+body::before,
+body::after,
+#root::before,
+#root::after {
+  content: "";
+  position: fixed;
+  pointer-events: none;
+}
+
+body::before {
+  top: -8rem;
+  left: -6rem;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-one) 0%, rgba(255, 255, 255, 0.08) 36%, transparent 72%);
+  filter: blur(14px);
+  animation: drift-one 24s ease-in-out infinite alternate;
+  z-index: -4;
+}
+
+body::after {
+  top: 12%;
+  right: -9rem;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-two) 0%, rgba(255, 255, 255, 0.05) 34%, transparent 72%);
+  filter: blur(20px);
+  animation: drift-two 22s ease-in-out infinite alternate;
+  z-index: -4;
+}
+
+#root {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+#root::before {
+  bottom: -9rem;
+  left: 18%;
+  width: 30rem;
+  height: 30rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--glow-three) 0%, transparent 72%);
+  filter: blur(24px);
+  animation: drift-three 26s ease-in-out infinite alternate;
+  z-index: -4;
+}
+
+#root::after {
+  inset: 8vh 7vw;
+  border-radius: 40px;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px);
+  background-size: 118px 118px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 42%, transparent 76%);
+  opacity: 0.34;
+  animation: shimmer-grid 28s linear infinite;
+  z-index: -5;
 }
 
 button,
@@ -80,14 +155,11 @@ img {
   max-width: 100%;
 }
 
-#root {
-  min-height: 100vh;
-}
-
 .app-shell {
+  position: relative;
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
-  padding: 32px 0 48px;
+  padding: 32px 0 56px;
 }
 
 .hero-grid,
@@ -98,6 +170,7 @@ img {
 
 .hero-grid {
   grid-template-columns: 1.45fr 1fr;
+  align-items: stretch;
   margin-bottom: 24px;
 }
 
@@ -112,18 +185,58 @@ img {
 
 .hero-copy,
 .search-card,
-.panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
+.panel,
+.status-banner {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, var(--glass-top), transparent 42%),
+    linear-gradient(180deg, var(--glass-top), var(--glass-bottom));
+  border: 1px solid var(--glass-stroke);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: blur(26px) saturate(165%);
+  -webkit-backdrop-filter: blur(26px) saturate(165%);
+}
+
+.hero-copy::before,
+.search-card::before,
+.panel::before,
+.status-banner::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background:
+    linear-gradient(140deg, var(--glass-highlight), transparent 24%, transparent 70%, rgba(255, 255, 255, 0.14)),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.24), transparent 45%);
+  opacity: 0.9;
+  z-index: 0;
+}
+
+.hero-copy > *,
+.search-card > *,
+.panel > *,
+.status-banner > * {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-copy,
 .search-card,
 .panel {
   padding: 28px;
+}
+
+.hero-copy {
+  min-height: 100%;
+}
+
+.current-panel {
+  background:
+    radial-gradient(circle at top right, rgba(255, 196, 106, 0.18), transparent 30%),
+    linear-gradient(145deg, var(--glass-top), var(--glass-bottom));
 }
 
 .hero-topline {
@@ -138,24 +251,32 @@ img {
 .theme-toggle {
   display: inline-flex;
   align-items: center;
-  padding: 8px 14px;
+  gap: 10px;
+  padding: 9px 15px;
   border-radius: 999px;
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .section-tag,
 .eyebrow-text {
-  background: rgba(36, 118, 255, 0.1);
+  background: var(--primary-soft);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   color: var(--primary);
 }
 
 .theme-toggle {
-  border: 1px solid var(--border);
-  background: var(--surface-strong);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  background: rgba(255, 255, 255, 0.16);
   color: var(--text);
   font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.theme-toggle svg {
+  width: 1rem;
+  height: 1rem;
 }
 
 .hero-copy h1,
@@ -163,11 +284,12 @@ img {
 .search-card h2 {
   margin: 18px 0 0;
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
-  line-height: 1.02;
+  line-height: 0.98;
 }
 
 .hero-copy h1 {
-  font-size: clamp(2.5rem, 5vw, 4.4rem);
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  text-shadow: 0 14px 36px rgba(30, 69, 116, 0.12);
 }
 
 .hero-copy p,
@@ -175,13 +297,13 @@ img {
 .lead-copy {
   margin: 16px 0 0;
   color: var(--muted);
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .search-field {
   display: grid;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 22px;
 }
 
 .search-label {
@@ -191,23 +313,30 @@ img {
 
 .search-card input {
   width: 100%;
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: 16px;
+  padding: 15px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 18px;
   color: var(--text);
-  background: var(--surface-strong);
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.search-card input::placeholder {
+  color: color-mix(in srgb, var(--muted) 78%, transparent);
 }
 
 .search-card button {
   width: 100%;
   margin-top: 14px;
-  padding: 14px 18px;
-  border: none;
-  border-radius: 16px;
+  padding: 15px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 18px;
   color: #fff;
-  background: linear-gradient(135deg, var(--primary), #56a3ff);
+  background: linear-gradient(135deg, rgba(39, 113, 241, 0.96), rgba(98, 164, 255, 0.92));
   font-weight: 700;
-  box-shadow: 0 18px 32px rgba(36, 118, 255, 0.18);
+  box-shadow:
+    0 18px 36px rgba(36, 118, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
 }
 
 .search-card button:disabled,
@@ -223,26 +352,28 @@ img {
 
 .helper-text {
   margin: 14px 0 0;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 .status-banner {
   margin-bottom: 24px;
-  padding: 16px 18px;
-  border-radius: 18px;
-  border: 1px solid transparent;
+  padding: 17px 18px;
   line-height: 1.6;
 }
 
 .status-banner--error {
   color: var(--danger-text);
-  background: var(--danger-bg);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.42), transparent 55%),
+    var(--danger-bg);
   border-color: var(--danger-border);
 }
 
 .status-banner--info {
   color: var(--text);
-  background: var(--info-bg);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.42), transparent 55%),
+    var(--info-bg);
   border-color: var(--info-border);
 }
 
@@ -259,15 +390,30 @@ img {
   align-items: start;
 }
 
+.panel-head--current {
+  align-items: center;
+}
+
 .temperature-row {
   align-items: end;
-  margin-top: 24px;
+  margin-top: 26px;
+}
+
+.temperature-stack {
+  display: grid;
+  gap: 8px;
 }
 
 .temperature-value {
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
   font-size: clamp(3.2rem, 8vw, 5.8rem);
   line-height: 0.92;
+  text-shadow: 0 16px 32px rgba(34, 73, 120, 0.12);
+}
+
+.temperature-caption {
+  margin: 0;
+  color: var(--muted);
 }
 
 .temperature-range {
@@ -282,12 +428,26 @@ img {
   flex-wrap: wrap;
 }
 
+.meta-grid > div,
+.forecast-card,
+.hourly-card,
+.highlight-card,
+.overview-list li {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.22), transparent 52%),
+    var(--glass-strong);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 18px 28px rgba(36, 66, 110, 0.08);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
 .meta-grid > div {
   min-width: 180px;
   padding: 16px;
   border-radius: var(--radius-md);
-  background: var(--surface-strong);
-  border: 1px solid var(--border);
 }
 
 .meta-label {
@@ -322,84 +482,143 @@ img {
 .highlight-card {
   padding: 18px;
   border-radius: var(--radius-md);
-  border: 1px solid var(--border);
-  background: var(--surface-strong);
+}
+
+.forecast-card,
+.hourly-card {
+  display: grid;
+  gap: 8px;
+  align-content: start;
 }
 
 .forecast-card strong,
 .hourly-card strong,
 .highlight-card strong {
   display: block;
-  margin: 14px 0 8px;
+  margin: 4px 0 4px;
   font-size: 1.5rem;
 }
 
 .forecast-card p,
 .hourly-card p {
-  margin: 0 0 6px;
+  margin: 0;
+}
+
+.forecast-head {
+  align-items: center;
+}
+
+.forecast-day,
+.hourly-time {
+  font-weight: 600;
 }
 
 .overview-list {
   list-style: none;
   padding: 0;
   margin: 18px 0 0;
+  display: grid;
+  gap: 12px;
 }
 
 .overview-list li {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.overview-list li:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+  padding: 16px 18px;
+  border-radius: 18px;
 }
 
 .overview-list span {
   color: var(--muted);
 }
 
-.symbol-chip,
-.symbol-image {
-  width: 64px;
-  height: 64px;
-  border-radius: 20px;
-}
-
-.symbol-chip {
+.weather-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  background:
+    linear-gradient(150deg, rgba(255, 255, 255, 0.28), transparent 62%),
+    rgba(255, 255, 255, 0.16);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 16px 34px rgba(36, 66, 110, 0.14);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
 }
 
-.symbol-image {
-  object-fit: cover;
-  background: rgba(36, 118, 255, 0.08);
+.weather-icon svg {
+  width: 54%;
+  height: 54%;
+  filter: drop-shadow(0 8px 14px rgba(28, 58, 103, 0.18));
 }
 
-.symbol-chip--clear,
-.symbol-chip--sun {
-  background: var(--clear);
+.weather-icon--xl {
+  width: 84px;
+  height: 84px;
+  border-radius: 28px;
 }
 
-.symbol-chip--cloud {
-  background: var(--cloud);
-  color: #274565;
+.weather-icon--sm {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
 }
 
-.symbol-chip--rain {
-  background: var(--rain);
+.weather-icon--clear,
+.weather-icon--sun {
+  color: #f5a623;
+  background:
+    linear-gradient(160deg, rgba(255, 210, 125, 0.56), rgba(255, 255, 255, 0.16)),
+    rgba(255, 181, 71, 0.12);
 }
 
-.symbol-chip--storm {
-  background: var(--storm);
+.weather-icon--cloud {
+  color: #6483a9;
+  background:
+    linear-gradient(160deg, rgba(216, 230, 248, 0.62), rgba(255, 255, 255, 0.14)),
+    rgba(120, 154, 191, 0.12);
+}
+
+.weather-icon--rain,
+.weather-icon--mist {
+  color: #3f6ea7;
+  background:
+    linear-gradient(160deg, rgba(159, 204, 255, 0.48), rgba(255, 255, 255, 0.12)),
+    rgba(92, 137, 190, 0.12);
+}
+
+.weather-icon--storm {
+  color: #364564;
+  background:
+    linear-gradient(160deg, rgba(152, 170, 214, 0.42), rgba(255, 255, 255, 0.1)),
+    rgba(64, 78, 114, 0.14);
+}
+
+@media (hover: hover) {
+  .hero-copy:hover,
+  .search-card:hover,
+  .panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 34px 96px rgba(38, 71, 112, 0.2);
+  }
+
+  .search-card button:hover,
+  .theme-toggle:hover {
+    transform: translateY(-1px);
+  }
+
+  .forecast-card:hover,
+  .hourly-card:hover,
+  .highlight-card:hover,
+  .overview-list li:hover {
+    border-color: rgba(255, 255, 255, 0.38);
+  }
 }
 
 @media (max-width: 1024px) {
@@ -414,6 +633,11 @@ img {
 }
 
 @media (max-width: 720px) {
+  #root::after {
+    inset: 10vh 5vw;
+    background-size: 80px 80px;
+  }
+
   .app-shell {
     width: min(calc(100% - 20px), 1180px);
     padding-top: 20px;
@@ -444,9 +668,55 @@ img {
     grid-template-columns: 1fr;
   }
 
-  .symbol-chip,
-  .symbol-image {
+  .weather-icon--xl {
+    width: 72px;
+    height: 72px;
+  }
+
+  .weather-icon,
+  .weather-icon--sm {
     width: 54px;
     height: 54px;
   }
 }
+
+@keyframes drift-one {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(7vw, 4vh, 0) scale(1.12);
+  }
+}
+
+@keyframes drift-two {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(-6vw, 8vh, 0) scale(1.08);
+  }
+}
+
+@keyframes drift-three {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(4vw, -7vh, 0) scale(1.15);
+  }
+}
+
+@keyframes shimmer-grid {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(40px, -30px, 0);
+  }
+}
+

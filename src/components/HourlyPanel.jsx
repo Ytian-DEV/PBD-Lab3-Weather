@@ -1,4 +1,4 @@
-import WeatherSymbol from "./WeatherSymbols";
+import WeatherSymbol from "./WeatherSymbol";
 import { formatClockLabel } from "../lib/formatters";
 
 export default function HourlyPanel({ hourly }) {
@@ -15,12 +15,11 @@ export default function HourlyPanel({ hourly }) {
       <div className="hourly-grid">
         {hourly.map((entry) => (
           <article className="hourly-card" key={entry.time}>
-            <span className="muted-text">{formatClockLabel(entry.time)}</span>
+            <span className="muted-text hourly-time">{formatClockLabel(entry.time)}</span>
             <WeatherSymbol
               label={entry.condition}
               symbol={entry.symbol}
-              iconUrl={entry.iconUrl}
-              lazy
+              size="sm"
             />
             <strong>{entry.temperature} C</strong>
             <p>{entry.condition}</p>

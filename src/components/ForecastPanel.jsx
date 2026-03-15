@@ -1,4 +1,4 @@
-import WeatherSymbol from "./WeatherSymbols";
+import WeatherSymbol from "./WeatherSymbol";
 import { formatDayName } from "../lib/formatters";
 
 export default function ForecastPanel({ forecast }) {
@@ -16,12 +16,11 @@ export default function ForecastPanel({ forecast }) {
         {forecast.map((day) => (
           <article className="forecast-card" key={day.date}>
             <div className="forecast-head">
-              <span>{formatDayName(day.date)}</span>
+              <span className="muted-text forecast-day">{formatDayName(day.date)}</span>
               <WeatherSymbol
                 label={day.condition}
                 symbol={day.symbol}
-                iconUrl={day.iconUrl}
-                lazy
+                size="sm"
               />
             </div>
             <strong>{day.high} C</strong>
