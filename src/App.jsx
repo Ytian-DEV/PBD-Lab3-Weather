@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import CurrentWeatherCard from "./components/CurrentWeatherCard";
+import CurrentWeatherCard from "./components/CurrentWeatherCards";
 import ForecastPanel from "./components/ForecastPanel";
 import HighlightsGrid from "./components/HighlightsGrid";
 import HourlyPanel from "./components/HourlyPanel";
