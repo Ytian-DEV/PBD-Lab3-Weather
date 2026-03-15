@@ -18,6 +18,8 @@ export default function WeatherSymbol({ label, symbol, iconUrl, lazy = false }) 
         src={iconUrl}
         alt={`${label} icon`}
         loading={lazy ? "lazy" : "eager"}
+        decoding="async"
+        fetchPriority={lazy ? "low" : "high"}
       />
     );
   }
