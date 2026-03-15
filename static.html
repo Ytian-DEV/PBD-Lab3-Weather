@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Weather Dashboard - Static</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #eef6ff;
+        --bg-accent: #dceeff;
+        --surface: rgba(255, 255, 255, 0.88);
+        --surface-strong: rgba(255, 255, 255, 0.96);
+        --border: rgba(71, 117, 169, 0.16);
+        --text: #16304f;
+        --muted: #527195;
+        --primary: #2476ff;
+        --secondary: #ff8c42;
+        --shadow: 0 20px 40px rgba(30, 73, 124, 0.12);
+        --radius-xl: 28px;
+        --radius-lg: 22px;
+        --radius-md: 18px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top right, rgba(255, 196, 61, 0.28), transparent 20%),
+          radial-gradient(circle at left, rgba(36, 118, 255, 0.2), transparent 18%),
+          linear-gradient(180deg, var(--bg) 0%, #f7fbff 100%);
+      }
+
+      .page-shell {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 32px 0 48px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+
+      .hero-card,
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .hero-copy {
+        padding: 28px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--primary);
+        background: rgba(36, 118, 255, 0.1);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        margin-top: 18px;
+        font-size: clamp(2.2rem, 5vw, 4rem);
+        line-height: 1;
+      }
+
+      .hero-copy p {
+        margin-top: 16px;
+        max-width: 62ch;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .search-card {
+        padding: 24px;
+      }
+
+      .search-box {
+        display: grid;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      input,
+      button {
+        width: 100%;
+        border: none;
+        border-radius: 16px;
+        padding: 14px 16px;
+        font: inherit;
+      }
+
+      input {
+        background: var(--surface-strong);
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+
+      button {
+        color: white;
+        background: linear-gradient(135deg, var(--primary), #56a3ff);
+        font-weight: 700;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr;
+        gap: 24px;
+      }
+
+      .stack {
+        display: grid;
+        gap: 24px;
+      }
+
+      .panel {
+        padding: 24px;
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .current-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        align-items: start;
+      }
+
+      .condition-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 72px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: rgba(255, 140, 66, 0.14);
+        color: #c35b11;
+        font-weight: 700;
+      }
+
+      .temperature {
+        margin-top: 18px;
+        font-size: clamp(3rem, 7vw, 5.5rem);
+        line-height: 0.92;
+        font-weight: 700;
+      }
+
+      .summary {
+        margin-top: 14px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .stat-grid,
+      .forecast-grid,
+      .hourly-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stat-card,
+      .forecast-card,
+      .hourly-card {
+        border: 1px solid var(--border);
+        background: var(--surface-strong);
+        border-radius: var(--radius-md);
+        padding: 16px;
+      }
+
+      .stat-card strong,
+      .forecast-card strong,
+      .hourly-card strong {
+        display: block;
+        margin-top: 10px;
+        font-size: 1.45rem;
+      }
+
+      .forecast-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .hourly-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 12px;
+      }
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      li:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      @media (max-width: 1024px) {
+        .hero,
+        .dashboard-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .forecast-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .page-shell {
+          width: min(100% - 20px, 1180px);
+          padding-top: 20px;
+        }
+
+        .current-header {
+          flex-direction: column;
+        }
+
+        .stat-grid,
+        .forecast-grid,
+        .hourly-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <section class="hero">
+        <article class="hero-card hero-copy">
+          <span class="eyebrow">Laboratory Activity 3</span>
+          <h1>Responsive Weather Dashboard</h1>
+          <p>
+            This static prototype presents hardcoded weather information for
+            Baguio City. It demonstrates dashboard layout, card hierarchy, and
+            responsive behavior before JavaScript, framework logic, and live API
+            data are introduced.
+          </p>
+        </article>
+
+        <aside class="hero-card search-card">
+          <h2>Static Search Mockup</h2>
+          <p class="muted" style="margin-top: 10px;">
+            Search is shown only as a placeholder in the static deliverable.
+          </p>
+          <div class="search-box">
+            <input type="text" value="Baguio City" readonly />
+            <button type="button">Search City</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="stack">
+          <article class="panel">
+            <div class="current-header">
+              <div>
+                <p class="muted">Baguio City, PH</p>
+                <h2>Current Weather</h2>
+              </div>
+              <span class="condition-chip">CLEAR</span>
+            </div>
+            <div class="temperature">23 C</div>
+            <p class="summary">
+              Cool highland weather with bright sunshine, low rain chance, and a
+              comfortable breeze throughout the afternoon.
+            </p>
+          </article>
+
+          <article class="panel">
+            <div class="section-head">
+              <h3>Hourly Outlook</h3>
+              <span class="muted">Today</span>
+            </div>
+            <div class="hourly-grid">
+              <div class="hourly-card">
+                <span class="muted">09:00</span>
+                <strong>23 C</strong>
+                <span class="muted">Rain 2%</span>
+              </div>
+              <div class="hourly-card">
+                <span class="muted">12:00</span>
+                <strong>25 C</strong>
+                <span class="muted">Rain 4%</span>
+              </div>
+              <div class="hourly-card">
+                <span class="muted">15:00</span>
+                <strong>24 C</strong>
+                <span class="muted">Rain 12%</span>
+              </div>
+              <div class="hourly-card">
+                <span class="muted">18:00</span>
+                <strong>21 C</strong>
+                <span class="muted">Rain 24%</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="section-head">
+              <h3>5-Day Forecast</h3>
+              <span class="muted">Hardcoded sample data</span>
+            </div>
+            <div class="forecast-grid">
+              <div class="forecast-card">
+                <span class="muted">Mon</span>
+                <strong>26 C</strong>
+                <span class="muted">Clear</span>
+              </div>
+              <div class="forecast-card">
+                <span class="muted">Tue</span>
+                <strong>25 C</strong>
+                <span class="muted">Clouds</span>
+              </div>
+              <div class="forecast-card">
+                <span class="muted">Wed</span>
+                <strong>24 C</strong>
+                <span class="muted">Rain</span>
+              </div>
+              <div class="forecast-card">
+                <span class="muted">Thu</span>
+                <strong>23 C</strong>
+                <span class="muted">Storm</span>
+              </div>
+              <div class="forecast-card">
+                <span class="muted">Fri</span>
+                <strong>24 C</strong>
+                <span class="muted">Clouds</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="stack">
+          <article class="panel">
+            <div class="section-head">
+              <h3>Weather Highlights</h3>
+              <span class="muted">Static metrics</span>
+            </div>
+            <div class="stat-grid">
+              <div class="stat-card">
+                <span class="muted">Feels Like</span>
+                <strong>24 C</strong>
+              </div>
+              <div class="stat-card">
+                <span class="muted">Humidity</span>
+                <strong>66%</strong>
+              </div>
+              <div class="stat-card">
+                <span class="muted">Wind Speed</span>
+                <strong>8 km/h</strong>
+              </div>
+              <div class="stat-card">
+                <span class="muted">Pressure</span>
+                <strong>1012 hPa</strong>
+              </div>
+              <div class="stat-card">
+                <span class="muted">Visibility</span>
+                <strong>10 km</strong>
+              </div>
+              <div class="stat-card">
+                <span class="muted">UV Index</span>
+                <strong>3 Moderate</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="section-head">
+              <h3>Day Cycle</h3>
+              <span class="muted">Static reference</span>
+            </div>
+            <ul>
+              <li><span class="muted">Sunrise</span><strong>06:08 AM</strong></li>
+              <li><span class="muted">Sunset</span><strong>06:09 PM</strong></li>
+              <li><span class="muted">Daily High / Low</span><strong>26 C / 18 C</strong></li>
+              <li><span class="muted">Last Updated</span><strong>Mar 16, 2026 08:00 AM</strong></li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
