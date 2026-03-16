@@ -686,52 +686,319 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .hero-grid,
+  .dashboard-grid,
+  .dashboard-stack {
+    gap: 20px;
+  }
+
   .forecast-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hourly-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .overview-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 720px) {
   .app-shell {
-    width: min(calc(100% - 20px), 1180px);
-    padding-top: 20px;
+    width: min(calc(100% - 16px), 1180px);
+    padding-top: 16px;
+    padding-bottom: 28px;
   }
 
-
+  .hero-grid,
+  .dashboard-grid,
+  .dashboard-stack {
+    gap: 14px;
+  }
 
   .hero-copy,
   .search-card,
   .panel {
-    padding: 22px;
+    padding: 16px;
   }
 
   .hero-topline,
   .panel-head,
   .temperature-row,
-  .meta-grid,
   .overview-list li {
     flex-direction: column;
     align-items: start;
   }
 
+  .hero-topline {
+    gap: 10px;
+  }
+
+  .theme-toggle {
+    align-self: flex-start;
+  }
+
+  .section-tag,
+  .eyebrow-text,
+  .theme-toggle {
+    gap: 6px;
+    padding: 7px 11px;
+    font-size: 0.7rem;
+  }
+
+  .hero-copy h1 {
+    margin-top: 12px;
+    font-size: clamp(2rem, 10.5vw, 2.75rem);
+  }
+
+  .panel h2,
+  .search-card h2 {
+    margin-top: 12px;
+    font-size: 1.18rem;
+  }
+
+  .hero-copy p,
+  .card-copy,
+  .lead-copy,
+  .helper-text {
+    font-size: 0.92rem;
+    line-height: 1.52;
+  }
+
+  .search-field {
+    gap: 7px;
+    margin-top: 16px;
+  }
+
+  .search-card input,
+  .search-card button {
+    padding: 12px 14px;
+    border-radius: 15px;
+    font-size: 0.94rem;
+  }
+
+  .status-banner {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+
+  .temperature-row {
+    margin-top: 16px;
+    gap: 8px;
+  }
+
   .temperature-range {
+    gap: 4px;
     text-align: left;
+    font-size: 0.9rem;
+  }
+
+  .temperature-value {
+    font-size: clamp(2.4rem, 14vw, 3.35rem);
+  }
+
+  .temperature-caption,
+  .search-label,
+  .meta-label {
+    font-size: 0.84rem;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .meta-grid > div {
+    min-width: 0;
+    padding: 12px;
   }
 
   .forecast-grid,
-  .hourly-grid,
+  .hourly-grid {
+    grid-template-columns: repeat(auto-fit, minmax(132px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+
   .highlights-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .overview-list {
+    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .forecast-card,
+  .hourly-card,
+  .highlight-card {
+    padding: 12px;
   }
 
   .forecast-card,
   .hourly-card {
-    min-height: auto;
+    gap: 6px;
+    min-height: 0;
+  }
+
+  .forecast-card strong,
+  .hourly-card strong,
+  .highlight-card strong {
+    font-size: 1.08rem;
+  }
+
+  .forecast-card p,
+  .hourly-card p,
+  .muted-text,
+  .overview-list span {
+    font-size: 0.82rem;
+  }
+
+  .forecast-day,
+  .hourly-time {
+    min-height: 0;
+  }
+
+  .forecast-day,
+  .hourly-time,
+  .forecast-low,
+  .hourly-rain {
+    font-size: 0.74rem;
+  }
+
+  .overview-list li {
+    gap: 6px;
+    justify-content: flex-start;
+    padding: 12px 13px;
   }
 
   .weather-icon--xl {
-    width: 72px;
-    height: 72px;
+    width: 58px;
+    height: 58px;
+    border-radius: 20px;
+  }
+
+  .weather-icon--sm {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-shell {
+    width: min(calc(100% - 12px), 1180px);
+    padding-top: 12px;
+    padding-bottom: 20px;
+  }
+
+  .hero-grid,
+  .dashboard-grid,
+  .dashboard-stack {
+    gap: 12px;
+  }
+
+  .hero-copy,
+  .search-card,
+  .panel {
+    padding: 14px;
+  }
+
+  .section-tag,
+  .eyebrow-text,
+  .theme-toggle {
+    gap: 5px;
+    padding: 6px 10px;
+    font-size: 0.64rem;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(1.75rem, 11.5vw, 2.25rem);
+  }
+
+  .panel h2,
+  .search-card h2 {
+    margin-top: 10px;
+    font-size: 1.05rem;
+  }
+
+  .hero-copy p,
+  .card-copy,
+  .lead-copy,
+  .helper-text {
+    font-size: 0.86rem;
+    line-height: 1.46;
+  }
+
+  .search-card input,
+  .search-card button {
+    padding: 11px 12px;
+    font-size: 0.9rem;
+  }
+
+  .temperature-value {
+    font-size: clamp(2.15rem, 13.5vw, 2.8rem);
+  }
+
+  .temperature-caption,
+  .search-label,
+  .meta-label,
+  .forecast-card p,
+  .hourly-card p,
+  .muted-text,
+  .overview-list span {
+    font-size: 0.78rem;
+  }
+
+  .forecast-grid,
+  .hourly-grid,
+  .highlights-grid,
+  .meta-grid,
+  .overview-list {
+    gap: 8px;
+  }
+
+  .forecast-card,
+  .hourly-card,
+  .highlight-card {
+    padding: 11px;
+  }
+
+  .overview-list li {
+    padding: 11px 12px;
+  }
+
+  .forecast-card strong,
+  .hourly-card strong,
+  .highlight-card strong {
+    font-size: 1rem;
+  }
+
+  .forecast-day,
+  .hourly-time,
+  .forecast-low,
+  .hourly-rain {
+    font-size: 0.7rem;
+  }
+
+  .weather-icon--sm {
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+  }
+
+  .weather-icon--xl {
+    width: 52px;
+    height: 52px;
+    border-radius: 18px;
   }
 }
 
